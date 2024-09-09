@@ -245,3 +245,18 @@ keytool -list -v -keystore keycloak-truststore.jks -storepass changeit
 
 #### Final Steps: Apply the Truststore in Your Application
 Once the certificate is imported into your truststore (keycloak-truststore.jks), proceed with mounting the truststore in your Helm chart and configuring Camunda Components to use it.
+
+
+# Debugging Help
+The kubectl exec command allows you to execute commands inside a running container within a Kubernetes pod. 
+```
+kubectl exec -it <pod-name> -- sh
+```
+
+## Use Java Keytool to Inspect Certificates
+
+By default, the containers do not have the OpenSSL utility installed. You can use the Java Keytool as an alternative.
+
+```
+keytool -list -v -keystore /etc/ssl/certs/keycloak-truststore.jks -storepass changeit
+```
