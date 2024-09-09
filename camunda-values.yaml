@@ -1,0 +1,53 @@
+global:
+  multitenancy:
+    enabled: true
+  ingress:
+    enabled: true
+    className: nginx
+    host: "example.de"
+    tls:
+      enabled: true
+      secretName: camunda-tls
+    annotations:
+      cert-manager.io/cluster-issuer: "letsencrypt-prod"
+      ingress.kubernetes.io/rewrite-target: "/"
+      nginx.ingress.kubernetes.io/ssl-redirect: "false"
+  identity:
+    keycloak:
+      url: 
+        protocol: "https"
+        host: "keycloak.example.de"
+        port: "443"
+      contextPath: "/"
+      realm: "/realms/camunda-platform"
+      auth:
+        adminUser: "admin"
+        existingSecret: "keycloak"
+        existingSecretKey: "admin-password"
+    auth:
+      publicIssuerUrl: "https://keycloak.example.de/realms/camunda-platform"
+      operate:
+        redirectUrl: "https://example.de/operate"
+      tasklist:
+        redirectUrl: "https://example.de/tasklist"
+      optimize:
+        redirectUrl: "https://example.de/optimize"
+
+identity:
+  contextPath: "/identity"
+
+identityKeycloak:
+  enabled: false
+
+identityPostgresql:
+  enabled: true
+
+operate:
+  contextPath: "/operate"
+
+optimize:
+  contextPath: "/optimize"
+
+tasklist:
+  contextPath: "/tasklist"
+
